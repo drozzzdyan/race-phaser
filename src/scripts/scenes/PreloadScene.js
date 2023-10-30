@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import tilesetPng from '../../assets/spritesheet_tiles.png';
+import tilesetJson from '../../assets/tile-map.json';
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -7,7 +9,8 @@ export default class PreloadScene extends Phaser.Scene {
 
   preload() {
     this.add.sprite(0, 0, 'bg').setOrigin(0);
-    console.log('kuku')
+    this.load.spritesheet('tileset', tilesetPng, { frameWidth: 64, frameHeight: 64 });
+    this.load.tilemapTiledJSON('tilemap', tilesetJson);
   }
 
   create() {

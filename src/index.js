@@ -5,8 +5,8 @@ import MenuScene from './scripts/scenes/MenuScene';
 
 const config = {
   type: Phaser.AUTO,
-  width: 2048,
-  height: 1152,
+  width: 1024,
+  height: 576,
   scene: [BootScene, PreloadScene, MenuScene],
   scale: {
     mode: Phaser.Scale.FIT,
