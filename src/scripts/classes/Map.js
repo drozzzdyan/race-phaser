@@ -26,8 +26,7 @@ export default class Map {
     this.tilemap.findObject('collisions', el => {
       const sprite = this.scene.matter.add.sprite(el.x + el.width / 2, el.y - el.height / 2, 'objects', el.name);
 
-      if(el.name === 'tree_large' || el.name === 'tree_small') {
-        console.log(sprite)
+      if(el.name === 'tree_large' || el.name === 'tree_small' || el.name === 'tires_red_alt') {
         sprite.setBody("circle")
       }
 

@@ -1,7 +1,8 @@
-const DIRECTIONS = Object.freeze({ BACKWARD: -1, NONE: 0, FORWARD: 1 });
+const DIRECTIONS = Object.freeze({ BACKWARD: -0.4, NONE: 0, FORWARD: 1 });
 const TURNS = Object.freeze({ LEFT: -1, NONE: 0, RIGHT: 1 });
 
 const SPEED = 4;
+const ACCELERATION = 0.08;
 const ANGLE_SPEED = 2;
 
 export default class Player {
@@ -13,6 +14,7 @@ export default class Player {
     this.car.setAngle(90);
     this.car.setScale(0.5);
     this.car.setFixedRotation(true);
+    this._velocity = 0;
   }
 
   get direction() {
@@ -40,7 +42,19 @@ export default class Player {
   }
 
   get velocity() {
-    return SPEED * this.direction;
+    const speed = Math.abs(this._velocity);
+
+    if(this.direction && speed < SPEED) {
+      this._velocity += ACCELERATION * this.direction;
+    } else if(!this.direction && speed > 0) {
+      this._velocity -= ACCELERATION * Math.sign(this._velocity);
+
+      if(speed < ACCELERATION) {
+        this._velocity = 0;
+      }
+    }
+
+    return this._velocity;
   }
 
   get angle() {
