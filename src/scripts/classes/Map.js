@@ -25,9 +25,13 @@ export default class Map {
   createCollisions() {
     this.tilemap.findObject('collisions', el => {
       const sprite = this.scene.matter.add.sprite(el.x, el.y, 'objects', el.name);
-      sprite.setAngle(el.rotation);
-      sprite.setSize(el.width, el.height);
-      sprite.setOrigin(0, 1);
+      sprite.setPosition(sprite.x + sprite.width / 2, sprite.y - sprite.height / 2);
+
+      if(el.name === 'tree_large' || el.name === 'tree_small') {
+        console.log(sprite)
+        sprite.setBody("circle")
+      }
+
       sprite.setStatic(true);
     })
   }

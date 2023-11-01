@@ -2,9 +2,13 @@ import Phaser from 'phaser';
 import Map from '../classes/Map';
 import Player from '../classes/Player';
 
-export default class MenuScene extends Phaser.Scene {
+export default class GameScene extends Phaser.Scene {
   constructor() {
-    super('MenuScene');
+    super('GameScene');
+  }
+
+  init() {
+    this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   preload() {
@@ -17,5 +21,9 @@ export default class MenuScene extends Phaser.Scene {
 
     this.cameras.main.setBounds(0, 0, this.map.tilemap.widthInPixels, this.map.tilemap.heightInPixels);
     this.cameras.main.startFollow(this.player.car);
+  }
+
+  update() {
+    this.player.move();
   }
 }
