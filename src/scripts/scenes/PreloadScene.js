@@ -3,6 +3,8 @@ import tilesetPng from '../../assets/spritesheet_tiles.png';
 import tilesetJson from '../../assets/tile-map.json';
 import objectsPng  from '../../assets/objects.png';
 import objectsJson  from '../../assets/objects.json';
+import carsPng  from '../../assets/cars.png';
+import carsJson  from '../../assets/cars.json';
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -15,6 +17,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.tilemapTiledJSON('tilemap', tilesetJson);
 
     this.load.atlas('objects', objectsPng, objectsJson);
+    this.load.atlas('cars', carsPng, carsJson);
   }
 
   create() {

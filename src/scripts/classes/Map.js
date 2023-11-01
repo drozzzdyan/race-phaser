@@ -23,12 +23,18 @@ export default class Map {
   }
 
   createCollisions() {
-    this.tilemap.findObject('collisions', collision => {
-      const sprite = this.scene.matter.add.sprite(collision.x, collision.y, 'objects', collision.name);
-      sprite.setAngle(collision.rotation);
-      sprite.setSize(collision.width, collision.height);
+    this.tilemap.findObject('collisions', el => {
+      const sprite = this.scene.matter.add.sprite(el.x, el.y, 'objects', el.name);
+      sprite.setAngle(el.rotation);
+      sprite.setSize(el.width, el.height);
       sprite.setOrigin(0, 1);
       sprite.setStatic(true);
+    })
+  }
+
+  getPLayerPosition() {
+    return this.tilemap.findObject('player', el => { 
+      return el.name === 'player';
     })
   }
 }
