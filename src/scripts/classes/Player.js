@@ -3,7 +3,7 @@ const TURNS = Object.freeze({ LEFT: -1, NONE: 0, RIGHT: 1 });
 
 const SPEED = 4;
 const ACCELERATION = 0.08;
-const ANGLE_SPEED = 2;
+const TURNING_SPEED_COEFFICIENT = 0.4;
 
 export default class Player {
   constructor(scene, map) {
@@ -32,9 +32,9 @@ export default class Player {
   get turn() {
     let turn = TURNS.NONE;
 
-    if (this.scene.cursors.left.isDown) {
+    if (this.scene.cursors.left.isDown && this._velocity != 0) {
       turn = TURNS.LEFT;
-    } else if (this.scene.cursors.right.isDown) {
+    } else if (this.scene.cursors.right.isDown && this._velocity != 0) {
       turn = TURNS.RIGHT;
     }
 
@@ -58,7 +58,7 @@ export default class Player {
   }
 
   get angle() {
-    return this.car.angle + ANGLE_SPEED * this.turn;
+    return this.car.angle + TURNING_SPEED_COEFFICIENT * this._velocity * this.turn;
   }
 
   getVelocityFromAngle() {
