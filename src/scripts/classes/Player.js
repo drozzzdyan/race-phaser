@@ -3,7 +3,7 @@ const TURNS = Object.freeze({ LEFT: -1, NONE: 0, RIGHT: 1 });
 
 const SPEED = 4;
 const ACCELERATION = 0.08;
-const TURNING_SPEED_COEFFICIENT = 0.4;
+const TURNING_SPEED_COEFFICIENT = 0.6;
 
 export default class Player {
   constructor(scene, map) {
@@ -43,10 +43,11 @@ export default class Player {
 
   get velocity() {
     const speed = Math.abs(this._velocity);
+    const maxSpeed = this.getMaxSpeed();
 
-    if(this.direction && speed < SPEED) {
+    if(this.direction && speed < maxSpeed) {
       this._velocity += ACCELERATION * this.direction;
-    } else if(!this.direction && speed > 0) {
+    } else if(!this.direction && speed > 0 || this.direction && speed > maxSpeed) {
       this._velocity -= ACCELERATION * Math.sign(this._velocity);
 
       if(speed < ACCELERATION) {
@@ -64,6 +65,10 @@ export default class Player {
   getVelocityFromAngle() {
     const vec2 = new Phaser.Math.Vector2();
     return vec2.setToPolar(this.car.rotation - Math.PI / 2, this.velocity);
+  }
+
+  getMaxSpeed() {
+    return SPEED * this.map.getTileFriction(this.car);
   }
 
   move() {
