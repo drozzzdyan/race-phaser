@@ -15,6 +15,13 @@ export default class Player {
     this.car.setScale(0.5);
     this.car.setFixedRotation(true);
     this._velocity = 0;
+
+    this.currentCheckpoint = 0;
+    this.laps = 0;
+  }
+
+  get lap() {
+    return this.laps + 1;
   }
 
   get direction() {
@@ -75,5 +82,24 @@ export default class Player {
     this.car.setAngle(this.angle);
     const velocity = this.getVelocityFromAngle();
     this.car.setVelocity(velocity.x, velocity.y);
+    this.checkPosition();
+  }
+
+  checkPosition() {
+    const checkpoint = this.map.getCheckpoint(this.car);
+
+    if (checkpoint) {
+      this.onCheckpoint(checkpoint);
+    }
+  }
+
+  onCheckpoint(checkpoint) {
+    if (checkpoint === 1 && this.currentCheckpoint === this.map.checkpoints.length) {
+      this.currentCheckpoint++;
+      this.laps += 1;
+      this.car.emit('lap', this.lap);
+    } else if (checkpoint - this.currentCheckpoint === 1) {
+      this.currentCheckpoint++;
+    }
   }
 }

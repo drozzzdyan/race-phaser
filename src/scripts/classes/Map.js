@@ -1,3 +1,5 @@
+import Phaser from "phaser";
+
 const GRASS_FRICTION = 0.2;
 const ROADS_FRICTIONS = {
   road: 1,
@@ -20,6 +22,7 @@ export default class Map {
   create() {
     this.createLayers();
     this.createCollisions();
+    this.createCheckpoints();
   }
 
   createLayers() {
@@ -41,6 +44,20 @@ export default class Map {
     })
   }
 
+  createCheckpoints() {
+    this.checkpoints = [];
+
+    this.tilemap.findObject('checkpoints', el => {
+      const rect = new Phaser.Geom.Rectangle(el.x, el.y, el.width, el.height);
+
+      // const graphics = this.scene.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
+      // graphics.strokeRectShape(rect);
+
+      rect.index = el.properties.find(prop => prop.name === 'value').value;
+      this.checkpoints.push(rect);
+    })
+  }
+
   getPLayerPosition() {
     return this.tilemap.findObject('player', el => {
       return el.name === 'player';
@@ -57,5 +74,10 @@ export default class Map {
     }
 
     return GRASS_FRICTION;
+  }
+
+  getCheckpoint(car) {
+    const checkpoint = this.checkpoints.find(checkpoint => checkpoint.contains(car.x, car.y));
+    return checkpoint ? parseInt(checkpoint.index) : false;
   }
 }
