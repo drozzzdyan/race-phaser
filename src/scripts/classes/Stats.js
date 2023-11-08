@@ -15,7 +15,7 @@ export default class Stats {
   }
 
   onLapComplete() {
-    console.log('onLapComplete')
+    console.log('onLapComplete', this.timeLap, this.timeBestLap)
     this.lap++;
 
     if (this.timeBestLap === 0 || this.timeLap < this.timeBestLap) {
@@ -24,9 +24,11 @@ export default class Stats {
 
     this.timeLastLap = this.timeLap;
     this.timeLap = 0;
+    console.log('onLapCompleteAfter', this.timeLap, this.timeBestLap)
   }
 
   update(dt) {
+    // console.log('current lap', this.lap)
     if (!this.complete) {
       const dtSec = dt / 1000;
 

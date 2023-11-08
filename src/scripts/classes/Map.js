@@ -59,8 +59,8 @@ export default class Map {
     this.tilemap.findObject('checkpoints', el => {
       const rect = new Phaser.Geom.Rectangle(el.x, el.y, el.width, el.height);
 
-      // const graphics = this.scene.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
-      // graphics.strokeRectShape(rect);
+      const graphics = this.scene.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
+      graphics.strokeRectShape(rect);
 
       rect.index = el.properties.find(prop => prop.name === 'value').value;
       this.checkpoints.push(rect);

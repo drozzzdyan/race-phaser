@@ -3,7 +3,7 @@ import Map from '../classes/Map';
 import Player from '../classes/Player';
 import Stats from '../classes/Stats';
 
-const LAPS = 2;
+const LAPS = 4;
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -28,7 +28,6 @@ export default class GameScene extends Phaser.Scene {
 
     this.player.car.on('lap', this.onLapComplete, this);
     this.matter.world.on('collisionactive', (event, obj1, obj2) => {
-      // console.log(event, obj1.gameObject.frame.name, obj2.gameObject.frame.name);
 
       if (obj1.gameObject.frame.name === 'oil' && obj2.gameObject === this.player.car) {
         this.player.slide();
@@ -36,11 +35,11 @@ export default class GameScene extends Phaser.Scene {
     })
   }
 
-  onLapComplete(lap) {
+  onLapComplete() {
     this.stats.onLapComplete();
 
     if (this.stats.complete) {
-      console.log('restart')
+      console.log('restart');
       this.scene.restart();
     }
   }
