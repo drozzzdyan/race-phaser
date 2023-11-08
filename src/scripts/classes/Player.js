@@ -4,6 +4,7 @@ const TURNS = Object.freeze({ LEFT: -1, NONE: 0, RIGHT: 1 });
 const SPEED = 4;
 const ACCELERATION = 0.08;
 const TURNING_SPEED_COEFFICIENT = 0.6;
+const SLIDE = 2;
 
 export default class Player {
   constructor(scene, map) {
@@ -83,6 +84,10 @@ export default class Player {
     const velocity = this.getVelocityFromAngle();
     this.car.setVelocity(velocity.x, velocity.y);
     this.checkPosition();
+  }
+
+  slide() {
+    this.car.angle -= SLIDE;
   }
 
   checkPosition() {

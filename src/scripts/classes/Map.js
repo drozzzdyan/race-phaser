@@ -23,6 +23,7 @@ export default class Map {
     this.createLayers();
     this.createCollisions();
     this.createCheckpoints();
+    this.createOils();
   }
 
   createLayers() {
@@ -41,6 +42,14 @@ export default class Map {
       }
 
       sprite.setStatic(true);
+    })
+  }
+
+  createOils() {
+    this.tilemap.findObject('oils', el => {
+      this.scene.matter.add.sprite(el.x + el.width / 2, el.y - el.height / 2, 'objects', el.name)
+        .setStatic(true)
+        .setSensor(true);
     })
   }
 

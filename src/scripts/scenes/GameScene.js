@@ -26,6 +26,13 @@ export default class GameScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.player.car);
 
     this.player.car.on('lap', this.onLapComplete, this);
+    this.matter.world.on('collisionactive', (event, obj1, obj2) => {
+      // console.log(event, obj1.gameObject.frame.name, obj2.gameObject.frame.name);
+
+      if (obj1.gameObject.frame.name === 'oil' && obj2.gameObject === this.player.car) {
+        this.player.slide();
+      }
+    })
   }
 
   onLapComplete(lap) {
