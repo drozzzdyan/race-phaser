@@ -12,7 +12,6 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    this.add.sprite(0, 0, 'bg').setOrigin(0);
     this.load.spritesheet('tileset', tilesetPng, { frameWidth: 64, frameHeight: 64 });
     this.load.tilemapTiledJSON('tilemap', tilesetJson);
 
@@ -21,6 +20,6 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start('GameScene');
+    this.scene.start('StartScene');
   }
 }
