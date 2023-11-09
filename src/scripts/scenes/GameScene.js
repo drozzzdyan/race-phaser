@@ -3,6 +3,7 @@ import Map from '../classes/Map';
 import Player from '../classes/Player';
 import Stats from '../classes/Stats';
 import StatsPanel from '../classes/StatsPanel';
+import StatsPopup from '../classes/StatsPopup';
 
 const LAPS = 3;
 
@@ -24,7 +25,7 @@ export default class GameScene extends Phaser.Scene {
     this.player = new Player(this, this.map);
     this.stats = new Stats(this, LAPS);
     this.statsPanel = new StatsPanel(this, this.stats);
-    
+
     this.cameras.main.setBounds(0, 0, this.map.tilemap.widthInPixels, this.map.tilemap.heightInPixels);
     this.cameras.main.startFollow(this.player.car);
 
@@ -41,8 +42,7 @@ export default class GameScene extends Phaser.Scene {
     this.stats.onLapComplete();
 
     if (this.stats.complete) {
-      console.log('restart');
-      this.scene.restart();
+      this.statsPopup = new StatsPopup(this, this.stats);
     }
   }
 

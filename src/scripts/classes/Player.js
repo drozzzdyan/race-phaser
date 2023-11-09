@@ -94,14 +94,10 @@ export default class Player {
   }
 
   onCheckpoint(checkpoint) {
-    // console.log(checkpoint, this.currentCheckpoint);
-
     if (checkpoint === 1 && this.currentCheckpoint === this.map.checkpoints.length) {
-      console.log('start line');
       this.currentCheckpoint = 0;
       this.car.emit('lap');
     } else if (checkpoint - this.currentCheckpoint === 1) {
-      console.log('check point', checkpoint, this.currentCheckpoint);
       this.currentCheckpoint++;
     }
   }
