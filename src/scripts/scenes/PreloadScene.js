@@ -1,10 +1,10 @@
 import Phaser from 'phaser';
-import tilesetPng from '../../assets/spritesheet_tiles.png';
-import tilesetJson from '../../assets/tile-map.json';
-import objectsPng  from '../../assets/objects.png';
-import objectsJson  from '../../assets/objects.json';
-import carsPng  from '../../assets/cars.png';
-import carsJson  from '../../assets/cars.json';
+import tilesetPng from '../../../public/assets/spritesheet_tiles.png';
+import tilesetJson from '../../../public/assets/tile-map.json';
+import objectsPng  from '../../../public/assets/objects.png';
+import objectsJson  from '../../../public/assets/objects.json';
+import carsPng  from '../../../public/assets/cars.png';
+import carsJson  from '../../../public/assets/cars.json';
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
