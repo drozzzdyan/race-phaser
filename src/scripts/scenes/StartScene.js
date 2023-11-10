@@ -42,14 +42,14 @@ export default class StartScene extends Phaser.Scene {
     this.button2.on('pointerdown', this.requestGame, this);
   }
 
-  startGame() {
-    this.scene.start('GameScene');
-  }
-
   requestGame() {
     // после запроса запустить игру
     this.client = new Client();
     this.client.init();
     this.client.on('gameStartPhaser', this.startGame, this);
+  }
+
+  startGame() {
+    this.scene.start('GameScene', { client: this.client });
   }
 }

@@ -7,11 +7,11 @@ const TURNING_SPEED_COEFFICIENT = 0.6;
 const SLIDE = 2;
 
 export default class Player {
-  constructor(scene, map) {
+  constructor(scene, map, config) {
     this.scene = scene;
     this.map = map;
-    const position = this.map.getPLayerPosition();
-    this.car = this.scene.matter.add.sprite(position.x, position.y, 'cars', 'car_black_1').setOrigin(0.5);
+    const position = this.map.getPLayerPosition(config.position);
+    this.car = this.scene.matter.add.sprite(position.x, position.y, 'cars', config.sprite).setOrigin(0.5);
     this.car.setAngle(90);
     this.car.setScale(0.5);
     this.car.setFixedRotation(true);

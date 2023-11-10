@@ -67,9 +67,9 @@ export default class Map {
     })
   }
 
-  getPLayerPosition() {
-    return this.tilemap.findObject('player', el => {
-      return el.name === 'player';
+  getPLayerPosition(positionName) {
+    return this.tilemap.findObject(positionName, el => {
+      return el.name === positionName;
     })
   }
 

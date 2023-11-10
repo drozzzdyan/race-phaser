@@ -7,8 +7,27 @@ module.exports = {
     // init socketIO
     this.io = socketIO(server);
     this.io.on('connection', socket => {
+      socket.on('playerMove', data => {
+        this.onPlayerMove(socket, data);
+      })
       this.onConnection(socket);
     })
+  },
+
+  onPlayerMove(socket, data) {
+    const session = this.sessions.find(el => el.playerSocket === socket || el.enemySocket === socket);
+
+    let opponentSocket;
+
+    if (session) {
+      if (session.playerSocket === socket) {
+        opponentSocket = session.enemySocket;
+      } else {
+        opponentSocket = session.playerSocket;
+      }
+    }
+
+    opponentSocket.emit('enemyMove', data);
   },
 
   // находит сессию, в которой есть сокет игрока, но нет сокета противника
@@ -25,7 +44,7 @@ module.exports = {
   },
 
   startGame(session) {
-    session.playerSocket.emit('gameStart');
+    session.playerSocket.emit('gameStart', { master: true });
     session.enemySocket.emit('gameStart');
   },
 
