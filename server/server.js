@@ -4,7 +4,7 @@ const DOCROOT = './../dist/';
 const http = require('http');
 const path = require('path');
 const express = require('express');
-const socketIO = require('socket.io');
+const sockets = require('./sockets');
 
 // creating server
 const app = express();
@@ -15,16 +15,10 @@ const documentRoot = path.join(__dirname, DOCROOT);
 const staticContent = express.static(documentRoot);
 app.use(staticContent);
 
+// sockets init
+sockets.init(server);
+
 // starting server
 server.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
-})
-
-// init socketIO
-const io = socketIO(server);
-io.on('connection', socket => {
-  socket.emit('gameStart');
-
-  console.log(`new user ${socket.id}`);
-  // console.log(socket);
 })
