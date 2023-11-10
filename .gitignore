@@ -12,6 +12,6 @@ Thumbs.db
 # Vendors
 
 # Build
-dist/
+# dist/
 /npm-debug.log
 node_modules
